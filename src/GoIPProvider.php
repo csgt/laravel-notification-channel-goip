@@ -25,7 +25,7 @@ class GoIPProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(GoIPConfig::class, function () {
-            return new GoIPConfig($this->app['config']['services.GoIP']);
+            return new GoIPConfig($this->app['config']['services.goip']);
         });
     }
 }
