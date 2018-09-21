@@ -1,0 +1,42 @@
+{
+    "name": "csgt/notification-channel-goip",
+    "description": "Notification channel GoIP.",
+    "homepage": "https://github.com/csgt/laravel-notification-channels-goip",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jose Galindo",
+            "email": "jgalindo@softlogic.com.gt",
+            "homepage": "https://github.com/csgt",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/notifications": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
+        "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
+        "illuminate/events": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
+        "illuminate/queue": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "^0.9.5",
+        "phpunit/phpunit": "4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "NotificationChannels\\GoIP\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "NotificationChannels\\GoIP\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
