@@ -34,8 +34,8 @@ class GoIP
     {
         $params = [
             'l' => 1,
-            'u' => 'admin',
-            'p' => 'admin',
+            'u' => env('GOIP_USER', 'admin'),
+            'p' => env('GOIP_PASS'),
             'n' => $to,
             'm' => trim($message->content),
         ];
