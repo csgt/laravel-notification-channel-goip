@@ -32,26 +32,45 @@ class GoIP
      */
     public function sendMessage(GoIPMessage $message, $to)
     {
-        $params = [
-            'l' => 1,
-            'u' => env('GOIP_USER', 'admin'),
-            'p' => env('GOIP_PASS'),
-            'n' => $to,
-            'm' => trim($message->content),
-        ];
+        $MAX_PORT = env('GOIP_MAXPORT', 1);
+        $tryAgain = true;
+        $i        = 0;
+        $port     = 1;
+        while ($tryAgain) {
 
-        if (!$serviceURL = $this->config->getAccountURL()) {
-            throw CouldNotSendNotification::missingURL();
-        }
-        $cliente = new Client;
-        try {
-            $response = $cliente->request('GET', $serviceURL, ['query' => $params, 'timeout' => 25, 'verify' => false]);
-            $html     = (string) $response->getBody();
-        } catch (RequestException $e) {
-            if ($e->hasResponse()) {
-                throw CouldNotSendNotification::errorSending(Psr7\str($e->getResponse()));
+            $params = [
+                'l' => $port,
+                'u' => env('GOIP_USER', 'admin'),
+                'p' => env('GOIP_PASS'),
+                'n' => $to,
+                'm' => trim($message->content),
+            ];
+
+            if (!$serviceURL = $this->config->getAccountURL()) {
+                throw CouldNotSendNotification::missingURL();
             }
-            throw CouldNotSendNotification::errorSending($e->getMessage());
+            $cliente = new Client;
+
+            try {
+                $response = $cliente->request('GET', $serviceURL, ['query' => $params, 'timeout' => 25, 'verify' => false]);
+                $html     = (string) $response->getBody();
+            } catch (RequestException $e) {
+                if ($e->hasResponse()) {
+                    throw CouldNotSendNotification::errorSending(Psr7\str($e->getResponse()));
+                }
+                throw CouldNotSendNotification::errorSending($e->getMessage());
+            }
+
+            if (stripos($html, "busy") !== false) {
+                sleep(3);
+                $port < $MAX_PORT ? $port++ : $port = 1;
+            } else {
+                $tryAgain = false;
+            }
+
+            if (++$i >= 10) {
+                $tryAgain = false;
+            }
         }
 
         return $response;
