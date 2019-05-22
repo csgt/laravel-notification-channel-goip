@@ -21,7 +21,7 @@ This package makes it easy to send [Direkto notifications] with Laravel 5.4.
 You can install the package via composer:
 
 ``` bash
-composer require csgt/notification-channel-direkto
+composer require csgt/notification-channel-goip
 ```
 
 You must install the service provider:
@@ -30,7 +30,7 @@ You must install the service provider:
 // config/app.php
 'providers' => [
     ...
-    NotificationChannels\Direkto\DirektoProvider::class,
+    NotificationChannels\GoIP\GoIPProvider::class,
 ],
 ```
 
@@ -41,10 +41,9 @@ Add your Direkto Account SID, Auth Token, and From Number (optional) to your `co
 ```php
 // config/services.php
 ...
-'direkto' => [
-    'account_url'   => env('DIREKTO_ACCOUNT_URL'),
-    'account_token' => env('DIREKTO_AUTH_TOKEN'),
-],
+'goip' => [
+        'account_url' => env('GOIP_URL'),
+    ],
 ...
 ```
 
@@ -53,15 +52,15 @@ Add your Direkto Account SID, Auth Token, and From Number (optional) to your `co
 Now you can use the channel in your `via()` method inside the notification:
 
 ``` php
-use NotificationChannels\Direkto\DirektoChannel;
-use NotificationChannels\Direkto\DirektoMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\GoIP\GoIPChannel;
+use NotificationChannels\GoIP\GoIPMessage;
 
 class AccountApproved extends Notification
 {
     public function via($notifiable)
     {
-        return [DirektoChannel::class];
+        return [GoIPChannel::class];
     }
 
     public function toDirekto($notifiable)
@@ -83,7 +82,7 @@ public function routeNotificationForDirekto()
 
 ### Available Message methods
 
-#### DirektoSmsMessage
+#### GoIPSmsMessage
 
 - `from('')`: Accepts a phone to use as the notification sender.
 - `content('')`: Accepts a string value for the notification body.
