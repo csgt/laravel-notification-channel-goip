@@ -53,7 +53,7 @@ class GoIPChannel
 
             return $this->GoIP->sendMessage($message, $to);
         } catch (Exception $exception) {
-            $this->events->fire(
+            $this->events->dispatch(
                 new NotificationFailed($notifiable, $notification, 'GoIP', ['message' => $exception->getMessage()])
             );
         }
