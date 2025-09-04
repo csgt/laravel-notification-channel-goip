@@ -7,20 +7,21 @@
 This package makes it easy to send [Direkto notifications] with Laravel 5.4.
 
 ## Contents
-- [Usage](#usage)
-	- [Available Message methods](#available-message-methods)
-- [Changelog](#changelog)
-- [Testing](#testing)
-- [Security](#security)
-- [Contributing](#contributing)
-- [Credits](#credits)
-- [License](#license)
+
+-   [Usage](#usage)
+    -   [Available Message methods](#available-message-methods)
+-   [Changelog](#changelog)
+-   [Testing](#testing)
+-   [Security](#security)
+-   [Contributing](#contributing)
+-   [Credits](#credits)
+-   [License](#license)
 
 ## Installation
 
 You can install the package via composer:
 
-``` bash
+```bash
 composer require csgt/notification-channel-goip
 ```
 
@@ -51,7 +52,7 @@ Add your Direkto Account SID, Auth Token, and From Number (optional) to your `co
 
 Now you can use the channel in your `via()` method inside the notification:
 
-``` php
+```php
 use Illuminate\Notifications\Notification;
 use NotificationChannels\GoIP\GoIPChannel;
 use NotificationChannels\GoIP\GoIPMessage;
@@ -84,8 +85,8 @@ public function routeNotificationForDirekto()
 
 #### GoIPSmsMessage
 
-- `from('')`: Accepts a phone to use as the notification sender.
-- `content('')`: Accepts a string value for the notification body.
+-   `from('')`: Accepts a phone to use as the notification sender.
+-   `content('')`: Accepts a string value for the notification body.
 
 ## Changelog
 
@@ -101,7 +102,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Credits
 
-- [CS](https://github.com/csgt)
+-   [CS](https://github.com/csgt)
 
 ## License
 
